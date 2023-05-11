@@ -61,16 +61,18 @@ class CategoriesScreen extends StatelessWidget {
         crossAxisSpacing: 2,
         mainAxisSpacing: 2,
         children: List.generate(8, (index) {
-          return Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CategoriesWidget(
-                catText: catInfo[index]['catText'],
-                imgPath: catInfo[index]['imgPath'],
-                color: color,
+          return Flex(direction: Axis.vertical, children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CategoriesWidget(
+                  catText: catInfo[index]['catText'],
+                  imgPath: catInfo[index]['imgPath'],
+                  color: color,
+                ),
               ),
             ),
-          );
+          ]);
         }),
       ),
     ));

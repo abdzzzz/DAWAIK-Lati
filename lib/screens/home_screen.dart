@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
+                  children: const [
                     BtnHome(),
                   ],
                 ),
@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Flexible(
                     child: SizedBox(
-                      height: size.width * 0.7,
+                      height: size.width * 0.75,
                       child: ListView.builder(
                           itemCount: productsOnSale.length < 10
                               ? productsOnSale.length
@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               GridView.count(
                 crossAxisCount: 2,
-                childAspectRatio: size.width / (size.height * 0.7),
+                childAspectRatio: size.width / (size.height * 0.8),
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: List.generate(allProducts.length, (index) {

@@ -19,7 +19,7 @@ import 'input_widgets/hart_btn.dart';
 
 class ProductDetails extends StatefulWidget {
   static const routeName = '/ProductDetails';
-  const ProductDetails({super.key});
+  const ProductDetails({super.key, Keykey});
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
@@ -53,8 +53,8 @@ class _ProductDetailsState extends State<ProductDetails> {
     bool isInCart = cartProvider.getCartItems.containsKey(getCurrProduct.id);
 
     final wishlistProvider = Provider.of<WishlistProvider>(context);
-    bool? isInWishlist =
-        wishlistProvider.getWishlistItems.containsKey(getCurrProduct.id);
+    bool? isInWishlist = false;
+    wishlistProvider.getWishlistItems.containsKey(getCurrProduct.id);
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -93,226 +93,221 @@ class _ProductDetailsState extends State<ProductDetails> {
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
                       )),
-                  child: Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, right: 20, left: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 20, right: 20, left: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                                child: TextWidget(
+                              text: getCurrProduct.title,
+                              color: color,
+                              textSize: 20,
+                              isTitle: true,
+                            )),
+                            Flexible(
+                                flex: 1,
+                                child: HeartBTN(
+                                  productId: getCurrProduct.id,
+                                  isWishlist: isInWishlist,
+                                  Size: 22,
+                                )),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 20, left: 20, right: 20),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Flexible(
-                                  child: TextWidget(
-                                text: getCurrProduct.title,
+                              TextWidget(
+                                text: ' السعر ',
                                 color: color,
                                 textSize: 20,
                                 isTitle: true,
-                              )),
-                              Flexible(
-                                  flex: 1,
-                                  child: HeartBTN(
-                                    productId: getCurrProduct.id,
-                                    isWishlist: isInWishlist,
-                                    Size: 22,
+                              ),
+                              TextWidget(
+                                text: ' ${usedPrice.toStringAsFixed(2)}  د.ل',
+                                color: color,
+                                textSize: 18,
+                                isTitle: false,
+                              ),
+                              Visibility(
+                                  visible:
+                                      getCurrProduct.isOnSale ? true : false,
+                                  child: Text(
+                                    getCurrProduct.price.toStringAsFixed(2),
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: color,
+                                        decoration: TextDecoration.lineThrough),
                                   )),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, left: 20, right: 20),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                TextWidget(
-                                  text: ' السعر ',
-                                  color: color,
-                                  textSize: 20,
-                                  isTitle: true,
-                                ),
-                                TextWidget(
-                                  text: ' ${usedPrice.toStringAsFixed(2)}  د.ل',
-                                  color: color,
-                                  textSize: 18,
-                                  isTitle: false,
-                                ),
-                                Visibility(
-                                    visible:
-                                        getCurrProduct.isOnSale ? true : false,
-                                    child: Text(
-                                      getCurrProduct.price.toStringAsFixed(2),
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: color,
-                                          decoration:
-                                              TextDecoration.lineThrough),
-                                    )),
-                                const Spacer(),
-                                SizedBox(
-                                  width: size.width * 0.3,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      _quantityController(
-                                        fct: () {
-                                          if (_quantityTextController.text ==
-                                              '1') {
-                                            return;
-                                          } else {
-                                            setState(() {
-                                              _quantityTextController
-                                                  .text = (int.parse(
-                                                          _quantityTextController
-                                                              .text) -
-                                                      1)
-                                                  .toString();
-                                            });
-                                          }
-                                        },
-                                        color: mainColor,
-                                        icon: CupertinoIcons.minus,
-                                      ),
-                                      Flexible(
-                                        flex: 1,
-                                        child: TextField(
-                                          controller: _quantityTextController,
-                                          key: const ValueKey('quantity'),
-                                          keyboardType: TextInputType.number,
-                                          maxLines: 1,
-                                          decoration: const InputDecoration(
-                                              border: UnderlineInputBorder()),
-                                          textAlign: TextAlign.center,
-                                          enabled: true,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter.allow(
-                                              RegExp('[0-9]'),
-                                            ),
-                                          ],
-                                          onChanged: (v) {
-                                            setState(() {
-                                              if (v.isEmpty) {
-                                                _quantityTextController.text =
-                                                    '1';
-                                              } else {}
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                      _quantityController(
-                                        fct: () {
+                              const Spacer(),
+                              SizedBox(
+                                width: size.width * 0.3,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    _quantityController(
+                                      fct: () {
+                                        if (_quantityTextController.text ==
+                                            '1') {
+                                          return;
+                                        } else {
                                           setState(() {
                                             _quantityTextController
                                                 .text = (int.parse(
                                                         _quantityTextController
-                                                            .text) +
+                                                            .text) -
                                                     1)
                                                 .toString();
                                           });
-                                        },
-                                        color: mainColor,
-                                        icon: CupertinoIcons.plus,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ]),
-                        ),
-                        Divider(
-                          color: color,
-                          thickness: 0.5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                TextWidget(
-                                  text: "وصف النتج",
-                                  color: color,
-                                  textSize: 18,
-                                  isTitle: true,
-                                ),
-                                const Spacer(),
-                              ]),
-                        ),
-                        Expanded(
-                          flex: 50,
-                          child: SingleChildScrollView(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
+                                        }
+                                      },
+                                      color: mainColor,
+                                      icon: CupertinoIcons.minus,
+                                    ),
                                     Flexible(
-                                      child: TextWidget(
-                                        text: getCurrProduct.des,
-                                        color: color,
-                                        textSize: 16,
-                                        isTitle: true,
+                                      flex: 1,
+                                      child: TextField(
+                                        controller: _quantityTextController,
+                                        key: const ValueKey('quantity'),
+                                        keyboardType: TextInputType.number,
+                                        maxLines: 1,
+                                        decoration: const InputDecoration(
+                                            border: UnderlineInputBorder()),
+                                        textAlign: TextAlign.center,
+                                        enabled: true,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.allow(
+                                            RegExp('[0-9]'),
+                                          ),
+                                        ],
+                                        onChanged: (v) {
+                                          setState(() {
+                                            if (v.isEmpty) {
+                                              _quantityTextController.text =
+                                                  '1';
+                                            } else {}
+                                          });
+                                        },
                                       ),
                                     ),
-                                  ]),
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 13, horizontal: 30),
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.secondary,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(30),
-                                  topRight: Radius.circular(30))),
-                          child: Row(
-                            children: [
-                              Flexible(
-                                fit: FlexFit.tight,
-                                child: Column(
-                                  children: [
-                                    MainButtonWid(
-                                      text: isInCart
-                                          ? 'تم الاضافة'
-                                          : 'اضيف الي السلة',
-                                      onPressed: isInCart
-                                          ? null
-                                          : ()async {
-                                              final User? user =
-                                                  authInstance.currentUser;
-                                              if (user == null) {
-                                                GlobalMethods.errorDialog(
-                                                    subtitle:
-                                                        "من فضلك قم بتسجيل الدخول",
-                                                    context: context);
-                                                return;
-                                              }
-
-                                            await  GlobalMethods.addToCart(
-                                                  productId: getCurrProduct.id,
-                                                  quantity: int.parse(
-                                                      _quantityTextController
-                                                          .text),
-                                                  context: context);
-                                               await   cartProvider.fetchCart();
-                                                
-                                            },
-                                      horizontalPadding: 0,
-                                      heightFromScreen: 0.05,
-                                      radius: 5,
-                                      widthFromScreen: 1,
+                                    _quantityController(
+                                      fct: () {
+                                        setState(() {
+                                          _quantityTextController.text =
+                                              (int.parse(_quantityTextController
+                                                          .text) +
+                                                      1)
+                                                  .toString();
+                                        });
+                                      },
+                                      color: mainColor,
+                                      icon: CupertinoIcons.plus,
                                     )
                                   ],
                                 ),
                               ),
-                            ],
+                            ]),
+                      ),
+                      Divider(
+                        color: color,
+                        thickness: 0.5,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              TextWidget(
+                                text: "وصف النتج",
+                                color: color,
+                                textSize: 18,
+                                isTitle: true,
+                              ),
+                              const Spacer(),
+                            ]),
+                      ),
+                      Expanded(
+                        flex: 50,
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Flexible(
+                                    child: TextWidget(
+                                      text: getCurrProduct.des,
+                                      color: color,
+                                      textSize: 16,
+                                      isTitle: true,
+                                    ),
+                                  ),
+                                ]),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                      const Spacer(),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 13, horizontal: 30),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.secondary,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30))),
+                        child: Row(
+                          children: [
+                            Flexible(
+                              fit: FlexFit.tight,
+                              child: Column(
+                                children: [
+                                  MainButtonWid(
+                                    text: isInCart
+                                        ? 'تم الاضافة'
+                                        : 'اضيف الي السلة',
+                                    onPressed: isInCart
+                                        ? null
+                                        : () async {
+                                            final User? user =
+                                                authInstance.currentUser;
+                                            if (user == null) {
+                                              GlobalMethods.errorDialog(
+                                                  subtitle:
+                                                      "من فضلك قم بتسجيل الدخول",
+                                                  context: context);
+                                              return;
+                                            }
+
+                                            await GlobalMethods.addToCart(
+                                                productId: getCurrProduct.id,
+                                                quantity: int.parse(
+                                                    _quantityTextController
+                                                        .text),
+                                                context: context);
+                                            await cartProvider.fetchCart();
+                                          },
+                                    horizontalPadding: 0,
+                                    heightFromScreen: 0.05,
+                                    radius: 5,
+                                    widthFromScreen: 1,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ))
           ],
