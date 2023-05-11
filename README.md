@@ -59,7 +59,7 @@ DAWAIK provides a fast and reliable service for selling drugs and medical suppli
 
 ## Getting started
 
-1. Clone this repo using `git clone https://github.com/abdzzzz/pharmacy-2.git`
+1. Clone this repo using `https://github.com/abdzzzz/DAWAIK-Lati.git`
 2. Open Folder By **VS Code**<br />
 3. Run `flutter pub get` in **terminal** to install dependencies<br />
 4. Connect your **mobile phone** to your **computer**
