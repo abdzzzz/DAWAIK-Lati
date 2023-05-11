@@ -54,7 +54,7 @@ DAWAIK provides a fast and reliable service for selling drugs and medical suppli
 ## Tools
 - Firebase
 - Flutter
-- [Figma] (https://www.figma.com/file/GwgQp27TxqbIXy9YkjfbJJ/DAWAIK-%2FUI?type=design&node-id=0%3A1&t=kBqMMwCsN6nCHz8B-1)
+- [Figma](https://www.figma.com/file/GwgQp27TxqbIXy9YkjfbJJ/DAWAIK-%2FUI?type=design&node-id=0%3A1&t=kBqMMwCsN6nCHz8B-1)
 - VS Code
 
 ## Getting started
