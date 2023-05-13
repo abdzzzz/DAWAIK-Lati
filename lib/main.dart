@@ -7,9 +7,8 @@ import 'package:pr_test1/provider/orders_provider.dart';
 import 'package:pr_test1/provider/product_provider.dart';
 import 'package:pr_test1/provider/wishlist_provider.dart';
 import 'package:pr_test1/screens/auth_screens/login_screen.dart';
+import 'package:pr_test1/screens/c.dart';
 import 'package:pr_test1/screens/cat_screen.dart';
-import 'package:pr_test1/screens/fetch_screen.dart';
-import 'package:pr_test1/screens/intro_screen.dart';
 import 'package:pr_test1/screens/on_sale_screen.dart';
 import 'package:pr_test1/screens/orders/orders_screen.dart';
 import 'package:pr_test1/screens/product_detailas.dart';
@@ -96,7 +95,7 @@ class _MyAppState extends State<MyApp> {
                   theme: Styles.themeData(themeProvider.getDarkTheme, context),
                   home: const Directionality(
                     textDirection: TextDirection.rtl,
-                    child: LoginScreen(),
+                    child: UserStat(),
                   ),
                   routes: {
                     OnSaleScreen.routeName: (context) => const OnSaleScreen(),

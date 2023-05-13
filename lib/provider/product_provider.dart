@@ -29,9 +29,9 @@ class ProductsProvider with ChangeNotifier {
               imageUrl: element.get('imageUrl'),
               productCatogryName: element.get('productCategoryName'),
               price: double.parse(
-                element.get('price'),
+                element.get('price').toString(),
               ),
-              salePrice: element.get('salePrice'),
+              salePrice: double.parse(element.get('salePrice').toString()),
               isOnSale: element.get('isOnSale'),
               des: element.get('des'),
             ));
@@ -39,6 +39,7 @@ class ProductsProvider with ChangeNotifier {
     });
     notifyListeners();
   }
+
   ProductModel findProdById(String productId) {
     return _productsList.firstWhere((element) => element.id == productId);
   }
